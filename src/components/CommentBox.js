@@ -1,31 +1,11 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import * as actions from 'actions'
-
+import requireAuth from 'components/requireAuth';
 
 class CommentBox extends Component {
 
     state = {comment: ''}
-
-
-    // component just rendered
-    componentDidMount(){
-        this.shouldNavigateAway()
-    }
-
-    // component just got updated
-    componentDidUpdate(){
-        this.shouldNavigateAway()
-    }
-
-
-    shouldNavigateAway(){
-        if(!this.props.auth){
-            //console.log("LEAVE PAGE")
-            // below props is from react route which will allow us to navigate away to another component
-            this.props.history.push('/') 
-        }
-    }
 
 
     handleChange = (event)=>{
@@ -62,9 +42,5 @@ class CommentBox extends Component {
 
 }
 
-function mapStateToProps(state){
-    return {auth:state.auth}
-}
 
-
-export default connect(mapStateToProps, actions)(CommentBox);
+export default connect(null, actions)(requireAuth(CommentBox));
